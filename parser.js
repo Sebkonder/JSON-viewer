@@ -129,6 +129,28 @@ function escapeHtml(s) {
     .replace(/"/g,'&quot;').replace(/'/g,'&#39;');
 }
 
+function downloadJSON(){
+    if (state.data === null) return;
+
+    const blob = new Blob(
+        [JSON.stringify(state.data, null, 2)],
+        { type: 'application/json'}
+    );
+
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    
+    link.href = url;
+    link.download = state.fileName;
+
+    document.body.appendChild(link);
+
+    link.click();
+    link.remove();
+
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+}
+
 function addKey(container, path, countContainer = null){
     const addButton = el('button', 'button');
     addButton.type = 'button';
@@ -604,6 +626,8 @@ dropzone.addEventListener('click', () => fileInput.click());
 fileInput.addEventListener('change', (e) => {
     if (e.target.files[0]) handleFile(e.target.files[0]);
 })
+
+$('downloadBtn').addEventListener('click', downloadJSON);
 
 $('pasteBtn').addEventListener('click', () => {
     pasteArea.classList.toggle('open');
