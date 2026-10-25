@@ -14,9 +14,9 @@ A small browser-based JSON viewer and editor. The project is being built as a wa
 
 ## Run locally
 
-1. Open the project folder in VS Code.
-2. Start `index.html` with the Live Server extension, or serve the folder with another local web server.
-3. Open the local address shown by the server in your browser.
+1. Download and open the project folder (eventually in VS Code).
+2. Start `index.html` (eventually with the Live Server extension, or serve the folder with another local web server).
+3. The browser will open automatically, the entire app runs locally.
 
 There is no build step. The color picker, Coloris, is loaded from a CDN, so that feature requires an internet connection.
 
