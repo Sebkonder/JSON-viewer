@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>JSON inspector</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mdbassit/Coloris@latest/dist/coloris.min.css"/>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="brand">
+        <h1 class="mark"><em>.</em>JSON viewer</h1>
+      </div>
+    </header>
+
+    <div class="dropzone" id="dropzone">
+      <div class="dz-inner">
+        <div class="dz-icon" aria-hidden="true">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M12 3v13m0 0l-5-5m5 5l5-5M5 21h14"/>
+          </svg>
+        </div>
+        <div class="dz-text">
+          <h2>Drop or paste a JSON file</h2>
+          <p>Any .json file</p>
+        </div>
+        <div class="dz-actions" onclick="event.stopPropagation()">
+          <button class="btn" id="pasteBtn">Paste Box</button>
+          <button class="btn primary" id="sampleBtn">Load Sample</button>
+        </div>
+      </div>
+      <input type="file" id="fileInput" accept=".json,application/json" style="display:none" />
+    </div>
+
+    <div class="paste-area" id="pasteArea">
+      <textarea id="pasteText" placeholder='{ "paste": "your JSON here", "anything": true }' spellcheck="false"></textarea>
+      <div class="paste-actions">
+        <button class="btn primary" id="parsePasteBtn">Parse</button>
+        <button class="btn" id="cancelPasteBtn">Cancel</button>
+      </div>
+    </div>
+
+    <div class="error" id="errorBox">
+      <strong>Parse error</strong>
+      <span id="errorMsg"></span>
+    </div>
+
+    <div class="summary" id="summary">
+      <span class="label">Source</span>
+      <span class="file-name" id="fileName">—</span>
+      <span class="spacer"></span>
+      <span class="stat"><span class="dot" style="background:var(--t-bool)"></span><span id="totalBool">0</span> bool</span>
+      <span class="stat"><span class="dot" style="background:var(--t-text)"></span><span id="totalText">0</span> text</span>
+      <span class="stat"><span class="dot" style="background:var(--t-color)"></span><span id="totalColor">0</span> color</span>
+      <span class="stat"><span class="dot" style="background:var(--t-number)"></span><span id="totalNumber">0</span> num</span>
+      <span class="stat"><span class="dot" style="background:var(--t-array)"></span><span id="totalArray">0</span> arr</span>
+      <span class="stat"><span class="dot" style="background:var(--t-object)"></span><span id="totalObject">0</span> obj</span>
+      <span class="stat"><span class="dot" style="background:var(--t-null)"></span><span id="totalNull">0</span> null</span>
+    </div>
+
+    <div class="blocks" id="blocks"></div >
+    <dialog id="type-dialog">
+      <form method="dialog">
+        <p>Choose a value type</p>
+        <button value="string">String</button>
+        <button value="number">Number</button>
+        <button value="boolean">Boolean</button>
+        <button value="array">Array</button>
+        <button value="object">Object</button>
+        <button value="cancel">Cancel</button>
+      </form>
+    </dialog>
+
+    <footer>
+      <span>Created by Glorp<sup>TM</sup></span>
+    </footer>
+
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/gh/mdbassit/Coloris@latest/dist/coloris.min.js"></script>
+  <script src="parser.js"></script>
+</body>
+</html>
